@@ -1,0 +1,56 @@
+name: Polyglot CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core-languages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build and compare implementations
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > outputs.jsonl
+          python python/main.py XX-OO---- X >> outputs.jsonl
+          node javascript/main.js XX-OO---- X >> outputs.jsonl
+          gcc -std=c17 -O2 -Wall -Wextra -pedantic c/main.c -o /tmp/alpha-c
+          /tmp/alpha-c XX-OO---- X >> outputs.jsonl
+          g++ -std=c++20 -O2 -Wall -Wextra -pedantic cpp/main.cpp -o /tmp/alpha-cpp
+          /tmp/alpha-cpp XX-OO---- X >> outputs.jsonl
+          javac java/Main.java
+          java -cp java Main XX-OO---- X >> outputs.jsonl
+          php php/main.php XX-OO---- X >> outputs.jsonl
+          dotnet run --project csharp/PolyglotAlphaBeta.csproj --configuration Release -- XX-OO---- X >> outputs.jsonl
+          cat outputs.jsonl
+          python scripts/check_outputs.py < outputs.jsonl
+
+  swift:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and run Swift implementation
+        run: |
+          swiftc swift/main.swift -O -o /tmp/alpha-swift
+          /tmp/alpha-swift XX-OO---- X | tee output.json
+          python3 - <<'PY'
+          import json
+          data = json.load(open('output.json'))
+          assert data['move'] == 2
+          assert data['score'] == 9
+          PY
