@@ -1,3 +1,19 @@
+# AI Algorithms Portfolio
+
+This repository now contains three inspectable AI/algorithmic systems:
+
+- **[NeuroForge C++](./neuroforge-cpp)** — reverse-mode autodiff, neural-network training, binary cross-entropy and Adam implemented from scratch;
+- **[DeepGrid Java](./deepgrid-java)** — a Deep Q-Network with manual backpropagation, replay buffer, Bellman targets and a target network;
+- **Polyglot Alpha-Beta Arena** — the original minimax engine implemented consistently across eight languages.
+
+The two neural MVPs are summarized in [AI_MECHANICS.md](./AI_MECHANICS.md) and can be built together with:
+
+```bash
+./run_ai_mechanics.sh
+```
+
+---
+
 # Polyglot Alpha-Beta Arena
 
 A small decision engine implemented in **eight programming languages**:
