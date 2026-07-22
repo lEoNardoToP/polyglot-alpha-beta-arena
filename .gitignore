@@ -1,0 +1,21 @@
+# Compiled binaries
+alpha-c
+alpha-cpp
+alpha-swift
+*.exe
+*.out
+
+# Java
+*.class
+
+# .NET
+bin/
+obj/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Local test output
+outputs.jsonl
+output.json

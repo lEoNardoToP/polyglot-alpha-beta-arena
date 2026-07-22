@@ -1,44 +1,161 @@
-# Algorithms and Data Structures — Alpha-Beta Project
+# Polyglot Alpha-Beta Arena
 
-This repository is intended to collect algorithmic work related to data structures, search, and alpha-beta style decision-making.
+A small decision engine implemented in **eight programming languages**:
 
-It is currently empty and will be populated after cleanup, but it is kept as part of my portfolio direction because algorithms and game-tree search are relevant to my interest in AI-oriented software development.
+- Python
+- JavaScript
+- C
+- C++
+- Java
+- PHP
+- C#
+- Swift
 
----
+Each implementation solves the same Tic-Tac-Toe position using **minimax with alpha-beta pruning** and returns the result through one shared JSON protocol.
 
-## Planned focus
+This is deliberately a compact project: the interesting part is not Tic-Tac-Toe itself, but demonstrating that the same algorithm, interfaces, validation rules, and CI contract can be expressed consistently across different language ecosystems.
 
-The project will be used to document and implement concepts such as:
+## Example
 
-- classic data structures
-- graph/search algorithms
+Input:
+
+```text
+board:  XX-OO----
+player: X
+```
+
+Board indexes:
+
+```text
+0 | 1 | 2
+---------
+3 | 4 | 5
+---------
+6 | 7 | 8
+```
+
+Expected result: X selects index `2` and wins immediately.
+
+```json
+{"language":"python","move":2,"score":9,"nodes":64}
+```
+
+`nodes` may vary between implementations or future optimizations, but `move` and `score` must agree.
+
+## Why this is useful as a portfolio project
+
+It demonstrates:
+
+- algorithmic reasoning
 - minimax and alpha-beta pruning
-- evaluation functions
-- algorithmic complexity
-- clean Java/C++/Python implementations
-- tests and examples
+- recursion and state rollback
+- deterministic tie-breaking
+- command-line interface design
+- input validation and error handling
+- JSON interoperability
+- cross-language CI on Linux and macOS
 
----
+It is small enough to explain in an interview without pretending to be a production AI platform.
 
-## Why it matters
+## Unified interface
 
-For AI/backend roles, this project can show that I am not only building web apps, but also working on the algorithmic foundations behind decision-making systems, optimization, and game AI.
+Every implementation accepts:
 
----
+```text
+<board> <player>
+```
 
-## Roadmap
+- `board`: exactly nine characters using `X`, `O`, and `-`
+- `player`: `X` or `O`, representing the AI player whose move is requested
 
-- [ ] Add cleaned source code
-- [ ] Add examples for each algorithm
-- [ ] Add tests
-- [ ] Add complexity notes
-- [ ] Add diagrams or execution traces
-- [ ] Add a small game-tree demo using minimax/alpha-beta pruning
+All implementations print one JSON object:
 
----
+```json
+{"language":"cpp","move":2,"score":9,"nodes":64}
+```
 
-## Portfolio status
+Invalid input is written to stderr and exits with status code `2`.
 
-**Status:** placeholder / cleanup planned.
+## Run locally
 
-This repository is public so the portfolio direction is visible, but the actual code should be added only after it has been reviewed, cleaned, and documented properly.
+### Python
+
+```bash
+python3 python/main.py XX-OO---- X
+```
+
+### JavaScript
+
+```bash
+node javascript/main.js XX-OO---- X
+```
+
+### C
+
+```bash
+gcc -std=c17 -O2 c/main.c -o alpha-c
+./alpha-c XX-OO---- X
+```
+
+### C++
+
+```bash
+g++ -std=c++20 -O2 cpp/main.cpp -o alpha-cpp
+./alpha-cpp XX-OO---- X
+```
+
+### Java
+
+```bash
+javac java/Main.java
+java -cp java Main XX-OO---- X
+```
+
+### PHP
+
+```bash
+php php/main.php XX-OO---- X
+```
+
+### C#
+
+```bash
+dotnet run --project csharp/PolyglotAlphaBeta.csproj -- XX-OO---- X
+```
+
+### Swift
+
+```bash
+swiftc swift/main.swift -O -o alpha-swift
+./alpha-swift XX-OO---- X
+```
+
+## Algorithm
+
+For every legal move, the engine:
+
+1. applies the candidate move;
+2. recursively explores the opponent response;
+3. scores wins, losses, and draws;
+4. rolls the board state back;
+5. prunes branches that cannot improve the result;
+6. selects the lowest board index when scores are tied.
+
+The worst-case game-tree complexity is exponential, but alpha-beta pruning reduces the number of explored states when strong moves are evaluated early.
+
+## Continuous integration
+
+GitHub Actions compiles and runs all eight implementations. A comparison script verifies that every language agrees on the selected move and score.
+
+## Possible extensions
+
+- add Connect Four with the same protocol;
+- benchmark node counts and execution time;
+- add transposition tables;
+- expose the engine through a small web visualizer;
+- generate property-based test positions;
+- compare minimax against Monte Carlo Tree Search.
+
+## Status
+
+**MVP complete.** The project is intentionally narrow and reviewable. Future additions should preserve the common protocol and cross-language tests.
