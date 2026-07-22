@@ -1,0 +1,40 @@
+name: AI Mechanics CI
+
+on:
+  push:
+    paths:
+      - 'neuroforge-cpp/**'
+      - 'deepgrid-java/**'
+      - 'run_ai_mechanics.sh'
+      - '.github/workflows/ai-mechanics-ci.yml'
+  pull_request:
+    paths:
+      - 'neuroforge-cpp/**'
+      - 'deepgrid-java/**'
+      - 'run_ai_mechanics.sh'
+      - '.github/workflows/ai-mechanics-ci.yml'
+
+jobs:
+  cpp-autograd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S neuroforge-cpp -B neuroforge-cpp/build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build neuroforge-cpp/build --parallel 2
+      - name: Test
+        run: ctest --test-dir neuroforge-cpp/build --output-on-failure
+      - name: Train deterministic demo
+        run: ./neuroforge-cpp/build/neuroforge_demo
+
+  java-dqn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Compile, test and train deterministic demo
+        run: ./deepgrid-java/build.sh
