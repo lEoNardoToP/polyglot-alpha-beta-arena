@@ -1,40 +1,54 @@
 # AI Algorithms Portfolio
 
-This repository contains three inspectable AI/algorithmic systems:
+[![AI mechanics CI](https://github.com/lEoNardoToP/polyglot-alpha-beta-arena/actions/workflows/ai-mechanics-ci.yml/badge.svg)](https://github.com/lEoNardoToP/polyglot-alpha-beta-arena/actions/workflows/ai-mechanics-ci.yml)
+[![Cross-language CI](https://github.com/lEoNardoToP/polyglot-alpha-beta-arena/actions/workflows/ci.yml/badge.svg)](https://github.com/lEoNardoToP/polyglot-alpha-beta-arena/actions/workflows/ci.yml)
 
-- **[NeuroForge C++](./neuroforge-cpp)** — reverse-mode autodiff, neural-network training, binary cross-entropy and Adam implemented from scratch;
-- **[DeepGrid Java](./deepgrid-java)** — a Deep Q-Network with manual backpropagation, replay buffer, Bellman targets and a target network;
-- **Polyglot Alpha-Beta Arena** — minimax with alpha-beta pruning implemented consistently across eight languages.
+A compact, inspectable portfolio of AI/algorithmic systems where the mechanics are visible in source code rather than hidden behind model APIs.
 
-The two neural MVPs are summarized in [AI_MECHANICS.md](./AI_MECHANICS.md) and can be built together with:
+## 5-minute reviewer path
 
-```bash
-./run_ai_mechanics.sh
-```
+If you are reviewing this for an interview or hiring decision:
 
-For interview preparation and reviewer context, read [TECHNICAL_INTERVIEW_NOTES.md](./TECHNICAL_INTERVIEW_NOTES.md). It explains the mechanics behind autodiff, Adam, DQN, Bellman targets, replay buffers, target networks, minimax, and alpha-beta pruning.
+1. **Run the AI mechanics:** `./run_ai_mechanics.sh`
+2. **Inspect C++ autodiff / MLP:** [`neuroforge-cpp`](./neuroforge-cpp)
+3. **Inspect the Java DQN:** [`deepgrid-java`](./deepgrid-java)
+4. **Run one alpha-beta engine:** `python3 python/main.py XX-OO---- X`
+5. **Check the cross-language contract:** every implementation must agree on `move` and `score`.
 
----
-
-## Why this repository exists
-
-This is not an API-wrapper portfolio. The goal is to show small, reviewable implementations where the core mechanics are visible in source code.
-
-A technical reviewer should be able to inspect this repository and see evidence of:
-
-- algorithmic reasoning;
-- from-scratch ML/RL mechanics;
-- command-line interface design;
-- deterministic behavior;
-- input validation and error handling;
-- cross-language consistency;
-- build/test automation.
+For the concepts and trade-offs behind the code, see [`TECHNICAL_INTERVIEW_NOTES.md`](./TECHNICAL_INTERVIEW_NOTES.md).
 
 ---
 
-# Polyglot Alpha-Beta Arena
+## What is inside
 
-A small decision engine implemented in **eight programming languages**:
+### NeuroForge C++
+
+A small from-scratch neural-network mechanics project containing:
+
+- reverse-mode autodiff;
+- computation graphs;
+- MLP training;
+- binary cross-entropy;
+- Adam optimization;
+- gradient checking.
+
+The point is not to compete with a framework. It is to make gradient flow and optimization directly reviewable.
+
+### DeepGrid Java
+
+A compact Deep Q-Network implementation containing:
+
+- manual backpropagation;
+- Bellman targets;
+- replay buffer;
+- target network;
+- epsilon-greedy exploration.
+
+The goal is to expose the mechanics behind a basic value-based RL loop in ordinary Java code.
+
+### Polyglot Alpha-Beta Arena
+
+Minimax with alpha-beta pruning implemented consistently in:
 
 - Python
 - JavaScript
@@ -45,170 +59,128 @@ A small decision engine implemented in **eight programming languages**:
 - C#
 - Swift
 
-Each implementation solves the same Tic-Tac-Toe position using **minimax with alpha-beta pruning** and returns the result through one shared JSON protocol.
+All implementations use one shared command-line contract and JSON output format.
 
-This is deliberately compact: the interesting part is not Tic-Tac-Toe itself, but demonstrating that the same algorithm, interfaces, validation rules, and CI contract can be expressed consistently across different language ecosystems.
+---
 
-## Example
+## Shared protocol
 
 Input:
-
-```text
-board:  XX-OO----
-player: X
-```
-
-Board indexes:
-
-```text
-0 | 1 | 2
----------
-3 | 4 | 5
----------
-6 | 7 | 8
-```
-
-Expected result: X selects index `2` and wins immediately.
-
-```json
-{"language":"python","move":2,"score":9,"nodes":64}
-```
-
-`nodes` may vary between implementations or future optimizations, but `move` and `score` must agree.
-
-## Why this is useful as a portfolio project
-
-It demonstrates:
-
-- algorithmic reasoning;
-- minimax and alpha-beta pruning;
-- recursion and state rollback;
-- deterministic tie-breaking;
-- command-line interface design;
-- input validation and error handling;
-- JSON interoperability;
-- cross-language CI on Linux and macOS.
-
-It is small enough to explain in an interview without pretending to be a production AI platform.
-
-## Technical interview notes
-
-The repository includes a dedicated interview guide: [TECHNICAL_INTERVIEW_NOTES.md](./TECHNICAL_INTERVIEW_NOTES.md).
-
-It covers:
-
-- reverse-mode autodiff;
-- binary cross-entropy;
-- Adam optimizer;
-- Deep Q-Networks;
-- Bellman targets;
-- replay buffers;
-- target networks;
-- epsilon-greedy exploration;
-- minimax;
-- alpha-beta pruning;
-- why a shared cross-language protocol matters.
-
-## Unified interface
-
-Every implementation accepts:
 
 ```text
 <board> <player>
 ```
 
 - `board`: exactly nine characters using `X`, `O`, and `-`
-- `player`: `X` or `O`, representing the AI player whose move is requested
+- `player`: `X` or `O`
 
-All implementations print one JSON object:
-
-```json
-{"language":"cpp","move":2,"score":9,"nodes":64}
-```
-
-Invalid input is written to stderr and exits with status code `2`.
-
-## Run locally
-
-### Python
+Example:
 
 ```bash
 python3 python/main.py XX-OO---- X
 ```
 
-### JavaScript
+Output:
 
-```bash
-node javascript/main.js XX-OO---- X
+```json
+{"language":"python","move":2,"score":9,"nodes":64}
 ```
 
-### C
+`nodes` may vary between implementations or future optimizations. `move` and `score` are the contract fields that must agree.
+
+Invalid input is written to stderr and exits with status code `2`.
+
+---
+
+## Why this repository exists
+
+This is deliberately **not** an API-wrapper portfolio. A reviewer should be able to inspect concrete evidence of:
+
+- algorithmic reasoning;
+- ML/RL mechanics implemented from scratch;
+- recursion and state rollback;
+- deterministic behavior;
+- validation and error handling;
+- cross-language interface design;
+- automated build/test contracts.
+
+The systems are intentionally small enough to explain without pretending that a portfolio exercise is a production ML platform.
+
+---
+
+## Run locally
+
+### AI mechanics
 
 ```bash
+./run_ai_mechanics.sh
+```
+
+### Alpha-beta implementations
+
+```bash
+python3 python/main.py XX-OO---- X
+node javascript/main.js XX-OO---- X
+
 gcc -std=c17 -O2 c/main.c -o alpha-c
 ./alpha-c XX-OO---- X
-```
 
-### C++
-
-```bash
 g++ -std=c++20 -O2 cpp/main.cpp -o alpha-cpp
 ./alpha-cpp XX-OO---- X
-```
 
-### Java
-
-```bash
 javac java/Main.java
 java -cp java Main XX-OO---- X
-```
 
-### PHP
-
-```bash
 php php/main.php XX-OO---- X
-```
 
-### C#
-
-```bash
 dotnet run --project csharp/PolyglotAlphaBeta.csproj -- XX-OO---- X
-```
 
-### Swift
-
-```bash
 swiftc swift/main.swift -O -o alpha-swift
 ./alpha-swift XX-OO---- X
 ```
 
-## Algorithm
+---
 
-For every legal move, the engine:
+## Proof of work
 
-1. applies the candidate move;
-2. recursively explores the opponent response;
-3. scores wins, losses, and draws;
-4. rolls the board state back;
-5. prunes branches that cannot improve the result;
-6. selects the lowest board index when scores are tied.
+The repository is expected to preserve these properties:
 
-The worst-case game-tree complexity is exponential, but alpha-beta pruning reduces the number of explored states when strong moves are evaluated early.
+- the AI mechanics build and run through automated checks;
+- the alpha-beta implementations compile/run in their supported CI environments;
+- implementations agree on the shared move/score contract;
+- repeated runs are deterministic for the same input;
+- failures are explicit rather than silently returning malformed output.
 
-## Continuous integration
+A future `benchmark/` directory will make the reviewer-facing evidence more systematic with a fixed input corpus and raw result summaries.
 
-GitHub Actions compiles and runs all eight implementations. A comparison script verifies that every language agrees on the selected move and score.
+---
 
-## Possible extensions
+## Technical notes
 
-- add Connect Four with the same protocol;
-- benchmark node counts and execution time;
-- add transposition tables;
-- expose the engine through a small web visualizer;
-- generate property-based test positions;
-- compare minimax against Monte Carlo Tree Search;
-- add screenshots and real output captures to make the project easier to evaluate visually.
+[`AI_MECHANICS.md`](./AI_MECHANICS.md) summarizes the two neural MVPs.
 
-## Status
+[`TECHNICAL_INTERVIEW_NOTES.md`](./TECHNICAL_INTERVIEW_NOTES.md) covers:
 
-**MVP complete.** The project is intentionally narrow and reviewable. Future additions should preserve the common protocol and cross-language tests.
+- reverse-mode autodiff;
+- binary cross-entropy;
+- Adam;
+- DQN and Bellman targets;
+- replay buffers and target networks;
+- epsilon-greedy exploration;
+- minimax and alpha-beta pruning;
+- why the shared cross-language protocol matters.
+
+---
+
+## Known scope and next improvements
+
+The current repository is an intentionally narrow portfolio project. Useful next improvements are:
+
+- fixed benchmark corpus and result snapshots;
+- property-based position generation;
+- transposition tables;
+- timing/node-count comparisons;
+- a small visualizer;
+- a short terminal/demo recording.
+
+Large unrelated experiments should live elsewhere so this repository remains easy to review.
