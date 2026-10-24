@@ -17,6 +17,27 @@ If you are reviewing this for an interview or hiring decision:
 
 For the concepts and trade-offs behind the code, see [`TECHNICAL_INTERVIEW_NOTES.md`](./TECHNICAL_INTERVIEW_NOTES.md).
 
+## Independent contract verification
+
+The checker compares each engine with a separate **unpruned game-tree oracle**,
+not merely with the other engines. It uses 32 deterministic positions (including
+empty-board, immediate-win and forced-response cases), checks lowest-index tie
+breaking, and requires malformed/terminal inputs to exit 2 with a diagnostic.
+Python can also be checked on **all 4,520 reachable nonterminal positions**.
+
+```bash
+# Requires all eight language toolchains; missing tools fail explicitly.
+python3 scripts/verify_contract.py --exhaustive-python
+
+# Explicit local subset, without silently claiming full coverage.
+python3 scripts/verify_contract.py --languages python javascript c cpp java \
+  --exhaustive-python --output reports/local-contract.json
+python3 -m unittest discover -s scripts -p test_verify_contract.py -v
+```
+
+[Executed local results, source hashes and environment limits](docs/CONTRACT_VALIDATION_2026-10-24.md).
+The CI matrix now runs the same independent contract on seven Linux languages and Swift on macOS.
+
 ---
 
 ## What is inside

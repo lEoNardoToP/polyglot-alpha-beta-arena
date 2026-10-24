@@ -1,0 +1,74 @@
+-- The CXX compiler identification is AppleClang 17.0.0.17000604
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (2.5s)
+-- Generating done (0.1s)
+-- Build files have been written to: /Users/leonardorosati/Desktop/Personal projects/Polyglot-arena/neuroforge-cpp/build
+[ 25%] Building CXX object CMakeFiles/neuroforge_demo.dir/src/main.cpp.o
+[ 50%] Building CXX object CMakeFiles/neuroforge_tests.dir/tests/test_autograd.cpp.o
+[ 75%] Linking CXX executable neuroforge_tests
+[ 75%] Built target neuroforge_tests
+[100%] Linking CXX executable neuroforge_demo
+[100%] Built target neuroforge_demo
+Test project /Users/leonardorosati/Desktop/Personal projects/Polyglot-arena/neuroforge-cpp/build
+    Start 1: autograd
+1/1 Test #1: autograd .........................   Passed    1.01 sec
+
+100% tests passed out of 1
+
+Total Test time (real) =   1.02 sec
+NeuroForge C++ - reverse-mode autodiff and neural training from scratch
+Gradient check | analytic=0.0837894 numeric=0.0837894 abs_error=1.71367e-11
+epoch=  1 train_loss=0.8161 test_loss=0.5161 test_accuracy=78.8%
+epoch= 20 train_loss=0.2116 test_loss=0.1874 test_accuracy=96.2%
+epoch= 40 train_loss=0.0947 test_loss=0.0690 test_accuracy=100.0%
+epoch= 60 train_loss=0.0268 test_loss=0.0185 test_accuracy=100.0%
+epoch= 80 train_loss=0.0092 test_loss=0.0074 test_accuracy=100.0%
+epoch=100 train_loss=0.0047 test_loss=0.0042 test_accuracy=100.0%
+epoch=120 train_loss=0.0028 test_loss=0.0029 test_accuracy=100.0%
+epoch=140 train_loss=0.0018 test_loss=0.0021 test_accuracy=100.0%
+
+Final test loss: 0.0021 | accuracy: 100.0%
+
+Learned decision boundary (# = class 1, . = class 0)
+..................................##
+.................................###
+...............................#####
+..............................######
+.............................#######
+............##..............########
+..........######...........#########
+.........#########........##########
+........###########......###########
+.......#############################
+.....###############################
+....################################
+..##################################
+.###################################
+All Java DQN tests passed.
+DeepGrid Java - DQN implemented without ML libraries
+episode=   1 epsilon=0,996 avg_reward=-3,520 success_100=  0,0% loss=0,01896
+episode= 200 epsilon=0,449 avg_reward=-1,639 success_100=  9,0% loss=0,00038
+episode= 400 epsilon=0,201 avg_reward=+0,337 success_100= 82,0% loss=0,00187
+episode= 600 epsilon=0,090 avg_reward=+0,646 success_100= 94,0% loss=0,00016
+episode= 800 epsilon=0,041 avg_reward=+0,739 success_100= 97,0% loss=0,00009
+episode=1000 epsilon=0,040 avg_reward=+0,803 success_100=100,0% loss=0,00020
+episode=1200 epsilon=0,040 avg_reward=+0,660 success_100= 95,0% loss=0,00000
+episode=1400 epsilon=0,040 avg_reward=+0,726 success_100= 96,0% loss=0,00000
+episode=1600 epsilon=0,040 avg_reward=+0,743 success_100= 97,0% loss=0,00000
+episode=1800 epsilon=0,040 avg_reward=+0,766 success_100= 98,0% loss=0,00000
+episode=2000 epsilon=0,040 avg_reward=+0,765 success_100= 98,0% loss=0,00000
+
+Greedy evaluation success: 100,0%
+Q-values at start [up, right, down, left]: [0.49738879311379447, 0.6004909440052504, 0.600189023859744, 0.5133716407515376]
+
+Learned greedy policy:
+S > > v < ^ 
+v # # v X v 
+v < # > v < 
+v X v # > v 
+v # v X v v 
+> > > > > G 

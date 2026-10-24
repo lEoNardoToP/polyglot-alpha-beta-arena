@@ -25,32 +25,22 @@ jobs:
       - name: Build and compare implementations
         shell: bash
         run: |
-          set -euo pipefail
-          : > outputs.jsonl
-          python python/main.py XX-OO---- X >> outputs.jsonl
-          node javascript/main.js XX-OO---- X >> outputs.jsonl
-          gcc -std=c17 -O2 -Wall -Wextra -pedantic c/main.c -o /tmp/alpha-c
-          /tmp/alpha-c XX-OO---- X >> outputs.jsonl
-          g++ -std=c++20 -O2 -Wall -Wextra -pedantic cpp/main.cpp -o /tmp/alpha-cpp
-          /tmp/alpha-cpp XX-OO---- X >> outputs.jsonl
-          javac java/Main.java
-          java -cp java Main XX-OO---- X >> outputs.jsonl
-          php php/main.php XX-OO---- X >> outputs.jsonl
-          dotnet run --project csharp/PolyglotAlphaBeta.csproj --configuration Release -- XX-OO---- X >> outputs.jsonl
-          cat outputs.jsonl
-          python scripts/check_outputs.py < outputs.jsonl
+          python -m unittest discover -s scripts -p 'test_verify_contract.py' -v
+          python scripts/verify_contract.py \
+            --languages python javascript c cpp java php csharp \
+            --exhaustive-python --output reports/contract-core.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: contract-core
+          path: reports/contract-core.json
 
   swift:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Compile and run Swift implementation
-        run: |
-          swiftc swift/main.swift -O -o /tmp/alpha-swift
-          /tmp/alpha-swift XX-OO---- X | tee output.json
-          python3 - <<'PY'
-          import json
-          data = json.load(open('output.json'))
-          assert data['move'] == 2
-          assert data['score'] == 9
-          PY
+      - name: Verify Swift against the independent game oracle
+        run: python3 scripts/verify_contract.py --languages swift --output reports/contract-swift.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: contract-swift
+          path: reports/contract-swift.json

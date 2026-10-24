@@ -1,0 +1,230 @@
+{
+  "seed": 17,
+  "oracle": "unpruned exhaustive minimax",
+  "coverage": {
+    "python": {
+      "positions": 32,
+      "invalid_inputs": 6
+    },
+    "javascript": {
+      "positions": 32,
+      "invalid_inputs": 6
+    },
+    "c": {
+      "positions": 32,
+      "invalid_inputs": 6
+    },
+    "cpp": {
+      "positions": 32,
+      "invalid_inputs": 6
+    },
+    "java": {
+      "positions": 32,
+      "invalid_inputs": 6
+    }
+  },
+  "all_eight_languages": false,
+  "source_sha256": {
+    "python/main.py": "2012cd4eba84f6c027131ede15bd8b7c7576cc02d62f25086e88569c5261f8f9",
+    "javascript/main.js": "57713aa034d68cba4abe41eeaca48d31f78d051c6d813f1491a403c8bd2d9f4d",
+    "c/main.c": "b691f911f1e36ae591f8fcf1afd18fb2da2c5d2f18d165f20d9a63673afc5e2b",
+    "cpp/main.cpp": "93cd2808eeb0baa460789d499140f91fdd75c7451f5a1710b66088319c652aee",
+    "java/Main.java": "3ce714b24d41d4dc04ffd074c7fbd3ceaca651e08d17f613d1c34c5d4143f2d4",
+    "scripts/verify_contract.py": "558967ca22b05d2cbdae07f9ec44d317776e8d76a7fad29514b7677f344ce360"
+  },
+  "corpus": [
+    {
+      "board": "---------",
+      "player": "X",
+      "move": 0,
+      "score": 0
+    },
+    {
+      "board": "XX-OO----",
+      "player": "X",
+      "move": 2,
+      "score": 9
+    },
+    {
+      "board": "OO-XX-X--",
+      "player": "O",
+      "move": 2,
+      "score": 9
+    },
+    {
+      "board": "X--------",
+      "player": "O",
+      "move": 4,
+      "score": 0
+    },
+    {
+      "board": "XX-OO-XOX",
+      "player": "O",
+      "move": 5,
+      "score": 9
+    },
+    {
+      "board": "X-OO-XX-O",
+      "player": "X",
+      "move": 1,
+      "score": 0
+    },
+    {
+      "board": "OOXX-OOXX",
+      "player": "X",
+      "move": 4,
+      "score": 0
+    },
+    {
+      "board": "OXXOO-XX-",
+      "player": "O",
+      "move": 5,
+      "score": 9
+    },
+    {
+      "board": "OO-X-XOXX",
+      "player": "O",
+      "move": 2,
+      "score": 9
+    },
+    {
+      "board": "-XO---OXX",
+      "player": "O",
+      "move": 4,
+      "score": 9
+    },
+    {
+      "board": "XXOO--XOX",
+      "player": "O",
+      "move": 4,
+      "score": 0
+    },
+    {
+      "board": "O-XXOXOX-",
+      "player": "O",
+      "move": 8,
+      "score": 9
+    },
+    {
+      "board": "-OO-XXO-X",
+      "player": "X",
+      "move": 0,
+      "score": 9
+    },
+    {
+      "board": "---XOOXOX",
+      "player": "X",
+      "move": 0,
+      "score": 9
+    },
+    {
+      "board": "O-O-XXOXX",
+      "player": "O",
+      "move": 1,
+      "score": 9
+    },
+    {
+      "board": "X---XOX-O",
+      "player": "O",
+      "move": 2,
+      "score": 9
+    },
+    {
+      "board": "X-OX--OXO",
+      "player": "X",
+      "move": 1,
+      "score": -8
+    },
+    {
+      "board": "O-OX--XXO",
+      "player": "X",
+      "move": 1,
+      "score": -8
+    },
+    {
+      "board": "XOXOXX--O",
+      "player": "O",
+      "move": 6,
+      "score": 0
+    },
+    {
+      "board": "OX--XO-OX",
+      "player": "X",
+      "move": 2,
+      "score": 0
+    },
+    {
+      "board": "X--XXOO--",
+      "player": "O",
+      "move": 8,
+      "score": 7
+    },
+    {
+      "board": "-OXX-OXOX",
+      "player": "O",
+      "move": 4,
+      "score": 9
+    },
+    {
+      "board": "XXOXXOOO-",
+      "player": "X",
+      "move": 8,
+      "score": 9
+    },
+    {
+      "board": "--X-OXX-O",
+      "player": "O",
+      "move": 0,
+      "score": 9
+    },
+    {
+      "board": "-OXXO-XXO",
+      "player": "O",
+      "move": 0,
+      "score": 9
+    },
+    {
+      "board": "-XOXOOXX-",
+      "player": "O",
+      "move": 8,
+      "score": 9
+    },
+    {
+      "board": "-X--OX---",
+      "player": "O",
+      "move": 0,
+      "score": 0
+    },
+    {
+      "board": "XXO--OXOX",
+      "player": "O",
+      "move": 3,
+      "score": -8
+    },
+    {
+      "board": "-XXO-O-XO",
+      "player": "X",
+      "move": 0,
+      "score": 9
+    },
+    {
+      "board": "OX-XOOOXX",
+      "player": "X",
+      "move": 2,
+      "score": 0
+    },
+    {
+      "board": "XXOO--X-O",
+      "player": "X",
+      "move": 5,
+      "score": 0
+    },
+    {
+      "board": "-OX--XXO-",
+      "player": "O",
+      "move": 4,
+      "score": 9
+    }
+  ],
+  "exhaustive_python_positions": 4520
+}
