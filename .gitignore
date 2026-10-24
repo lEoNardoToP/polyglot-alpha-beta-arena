@@ -19,3 +19,7 @@ __pycache__/
 # Local test output
 outputs.jsonl
 output.json
+
+# Disposable build and verification output
+build/
+reports/
