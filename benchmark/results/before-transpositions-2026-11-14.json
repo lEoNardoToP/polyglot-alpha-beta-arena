@@ -1,0 +1,653 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-11-14T20:07:34.201278+00:00",
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "python": "3.12.14",
+    "logical_cpus": 3
+  },
+  "toolchains": {
+    "python": {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "--version"
+      ],
+      "exit_code": 0,
+      "version": "Python 3.12.14"
+    },
+    "javascript": {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "version": "v24.22.1"
+    },
+    "c": {
+      "argv": [
+        "cc",
+        "--version"
+      ],
+      "exit_code": 0,
+      "version": "cc (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    },
+    "cpp": {
+      "argv": [
+        "c++",
+        "--version"
+      ],
+      "exit_code": 0,
+      "version": "c++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+    }
+  },
+  "method": {
+    "repeats": 5,
+    "warmups_per_case": 1,
+    "timing": "wall-clock CLI latency including process startup; excludes compilation and oracle",
+    "node_baseline": "unpruned full tree excluding synthetic root; transpositions counted per visit",
+    "limits": "small fixed corpus; shared host; no pure search throughput or production claims"
+  },
+  "languages": [
+    "python",
+    "javascript",
+    "c",
+    "cpp"
+  ],
+  "all_eight_languages": false,
+  "source_sha256": {
+    "python/main.py": "2012cd4eba84f6c027131ede15bd8b7c7576cc02d62f25086e88569c5261f8f9",
+    "javascript/main.js": "57713aa034d68cba4abe41eeaca48d31f78d051c6d813f1491a403c8bd2d9f4d",
+    "c/main.c": "b691f911f1e36ae591f8fcf1afd18fb2da2c5d2f18d165f20d9a63673afc5e2b",
+    "cpp/main.cpp": "93cd2808eeb0baa460789d499140f91fdd75c7451f5a1710b66088319c652aee",
+    "scripts/benchmark.py": "718e1dfa182a53cf7e747f9859da9a9d7d8dd41b6319bfd2e2f0a72f499ad786",
+    "scripts/verify_contract.py": "558967ca22b05d2cbdae07f9ec44d317776e8d76a7fad29514b7677f344ce360",
+    "benchmark/corpus.json": "38f9fac2dcc014a2c38c2d826a9046fd9cbfa0263938b1063528e7ecd5ab9c62"
+  },
+  "results": {
+    "python": [
+      {
+        "name": "opening",
+        "board": "---------",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 34202,
+        "unpruned_nodes": 549945,
+        "node_reduction_fraction": 0.9378083262871741,
+        "cli_ms_samples": [
+          65.442968,
+          53.207153,
+          66.094474,
+          54.847692,
+          63.183413
+        ],
+        "cli_ms_median": 63.183413
+      },
+      {
+        "name": "corner-response",
+        "board": "X--------",
+        "player": "O",
+        "move": 4,
+        "score": 0,
+        "nodes": 6304,
+        "unpruned_nodes": 59704,
+        "node_reduction_fraction": 0.8944124346777436,
+        "cli_ms_samples": [
+          27.331628,
+          31.751909,
+          27.017402,
+          32.116913,
+          27.395531
+        ],
+        "cli_ms_median": 27.395531
+      },
+      {
+        "name": "center-response",
+        "board": "----X----",
+        "player": "O",
+        "move": 0,
+        "score": 0,
+        "nodes": 8465,
+        "unpruned_nodes": 55504,
+        "node_reduction_fraction": 0.8474884692995099,
+        "cli_ms_samples": [
+          32.175723,
+          45.604288,
+          34.465187,
+          35.924032,
+          29.729837
+        ],
+        "cli_ms_median": 34.465187
+      },
+      {
+        "name": "immediate-win",
+        "board": "XX-OO----",
+        "player": "X",
+        "move": 2,
+        "score": 9,
+        "nodes": 64,
+        "unpruned_nodes": 156,
+        "node_reduction_fraction": 0.5897435897435898,
+        "cli_ms_samples": [
+          20.448809,
+          28.730912,
+          19.796888,
+          22.335539,
+          23.011265
+        ],
+        "cli_ms_median": 22.335539
+      },
+      {
+        "name": "forced-block",
+        "board": "OO-XX-X--",
+        "player": "O",
+        "move": 2,
+        "score": 9,
+        "nodes": 17,
+        "unpruned_nodes": 25,
+        "node_reduction_fraction": 0.31999999999999995,
+        "cli_ms_samples": [
+          22.052434,
+          31.115263,
+          20.381262,
+          35.82058,
+          34.192586
+        ],
+        "cli_ms_median": 31.115263
+      },
+      {
+        "name": "opposite-corners",
+        "board": "X---O---X",
+        "player": "O",
+        "move": 1,
+        "score": 0,
+        "nodes": 497,
+        "unpruned_nodes": 1052,
+        "node_reduction_fraction": 0.5275665399239544,
+        "cli_ms_samples": [
+          22.881392,
+          31.444514,
+          28.211438,
+          23.132084,
+          27.920079
+        ],
+        "cli_ms_median": 27.920079
+      },
+      {
+        "name": "late-game",
+        "board": "XOX-O-X--",
+        "player": "O",
+        "move": 7,
+        "score": 9,
+        "nodes": 24,
+        "unpruned_nodes": 33,
+        "node_reduction_fraction": 0.2727272727272727,
+        "cli_ms_samples": [
+          22.712911,
+          23.876909,
+          22.786099,
+          26.293089,
+          20.041167
+        ],
+        "cli_ms_median": 22.786099
+      },
+      {
+        "name": "last-cell",
+        "board": "-OOOXXXXO",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 1,
+        "unpruned_nodes": 1,
+        "node_reduction_fraction": 0.0,
+        "cli_ms_samples": [
+          19.628705,
+          27.998187,
+          21.427229,
+          26.205414,
+          20.962283
+        ],
+        "cli_ms_median": 21.427229
+      }
+    ],
+    "javascript": [
+      {
+        "name": "opening",
+        "board": "---------",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 34202,
+        "unpruned_nodes": 549945,
+        "node_reduction_fraction": 0.9378083262871741,
+        "cli_ms_samples": [
+          55.66548,
+          58.333489,
+          48.973419,
+          53.099364,
+          64.355782
+        ],
+        "cli_ms_median": 55.66548
+      },
+      {
+        "name": "corner-response",
+        "board": "X--------",
+        "player": "O",
+        "move": 4,
+        "score": 0,
+        "nodes": 6304,
+        "unpruned_nodes": 59704,
+        "node_reduction_fraction": 0.8944124346777436,
+        "cli_ms_samples": [
+          58.564383,
+          55.265726,
+          63.426539,
+          49.987434,
+          53.018907
+        ],
+        "cli_ms_median": 55.265726
+      },
+      {
+        "name": "center-response",
+        "board": "----X----",
+        "player": "O",
+        "move": 0,
+        "score": 0,
+        "nodes": 8465,
+        "unpruned_nodes": 55504,
+        "node_reduction_fraction": 0.8474884692995099,
+        "cli_ms_samples": [
+          51.659094,
+          54.455899,
+          63.057548,
+          55.775391,
+          56.720892
+        ],
+        "cli_ms_median": 55.775391
+      },
+      {
+        "name": "immediate-win",
+        "board": "XX-OO----",
+        "player": "X",
+        "move": 2,
+        "score": 9,
+        "nodes": 64,
+        "unpruned_nodes": 156,
+        "node_reduction_fraction": 0.5897435897435898,
+        "cli_ms_samples": [
+          50.874055,
+          37.562449,
+          35.702588,
+          34.868413,
+          35.762783
+        ],
+        "cli_ms_median": 35.762783
+      },
+      {
+        "name": "forced-block",
+        "board": "OO-XX-X--",
+        "player": "O",
+        "move": 2,
+        "score": 9,
+        "nodes": 17,
+        "unpruned_nodes": 25,
+        "node_reduction_fraction": 0.31999999999999995,
+        "cli_ms_samples": [
+          38.077044,
+          37.65123,
+          37.502888,
+          37.608146,
+          35.636805
+        ],
+        "cli_ms_median": 37.608146
+      },
+      {
+        "name": "opposite-corners",
+        "board": "X---O---X",
+        "player": "O",
+        "move": 1,
+        "score": 0,
+        "nodes": 497,
+        "unpruned_nodes": 1052,
+        "node_reduction_fraction": 0.5275665399239544,
+        "cli_ms_samples": [
+          40.183681,
+          43.675071,
+          38.356541,
+          37.177832,
+          42.5783
+        ],
+        "cli_ms_median": 40.183681
+      },
+      {
+        "name": "late-game",
+        "board": "XOX-O-X--",
+        "player": "O",
+        "move": 7,
+        "score": 9,
+        "nodes": 24,
+        "unpruned_nodes": 33,
+        "node_reduction_fraction": 0.2727272727272727,
+        "cli_ms_samples": [
+          41.749212,
+          39.068528,
+          42.86446,
+          39.390715,
+          36.7621
+        ],
+        "cli_ms_median": 39.390715
+      },
+      {
+        "name": "last-cell",
+        "board": "-OOOXXXXO",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 1,
+        "unpruned_nodes": 1,
+        "node_reduction_fraction": 0.0,
+        "cli_ms_samples": [
+          43.589657,
+          39.792184,
+          38.436325,
+          37.206259,
+          35.884466
+        ],
+        "cli_ms_median": 38.436325
+      }
+    ],
+    "c": [
+      {
+        "name": "opening",
+        "board": "---------",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 34202,
+        "unpruned_nodes": 549945,
+        "node_reduction_fraction": 0.9378083262871741,
+        "cli_ms_samples": [
+          2.766096,
+          2.746165,
+          2.711067,
+          4.020511,
+          2.782122
+        ],
+        "cli_ms_median": 2.766096
+      },
+      {
+        "name": "corner-response",
+        "board": "X--------",
+        "player": "O",
+        "move": 4,
+        "score": 0,
+        "nodes": 6304,
+        "unpruned_nodes": 59704,
+        "node_reduction_fraction": 0.8944124346777436,
+        "cli_ms_samples": [
+          1.472107,
+          1.420872,
+          1.249154,
+          1.416946,
+          1.360459
+        ],
+        "cli_ms_median": 1.416946
+      },
+      {
+        "name": "center-response",
+        "board": "----X----",
+        "player": "O",
+        "move": 0,
+        "score": 0,
+        "nodes": 8465,
+        "unpruned_nodes": 55504,
+        "node_reduction_fraction": 0.8474884692995099,
+        "cli_ms_samples": [
+          1.483959,
+          1.499155,
+          1.59804,
+          1.604475,
+          1.807536
+        ],
+        "cli_ms_median": 1.59804
+      },
+      {
+        "name": "immediate-win",
+        "board": "XX-OO----",
+        "player": "X",
+        "move": 2,
+        "score": 9,
+        "nodes": 64,
+        "unpruned_nodes": 156,
+        "node_reduction_fraction": 0.5897435897435898,
+        "cli_ms_samples": [
+          0.949083,
+          1.20425,
+          1.150628,
+          1.00491,
+          1.132191
+        ],
+        "cli_ms_median": 1.132191
+      },
+      {
+        "name": "forced-block",
+        "board": "OO-XX-X--",
+        "player": "O",
+        "move": 2,
+        "score": 9,
+        "nodes": 17,
+        "unpruned_nodes": 25,
+        "node_reduction_fraction": 0.31999999999999995,
+        "cli_ms_samples": [
+          1.642709,
+          1.14895,
+          1.151353,
+          1.515247,
+          1.219833
+        ],
+        "cli_ms_median": 1.219833
+      },
+      {
+        "name": "opposite-corners",
+        "board": "X---O---X",
+        "player": "O",
+        "move": 1,
+        "score": 0,
+        "nodes": 497,
+        "unpruned_nodes": 1052,
+        "node_reduction_fraction": 0.5275665399239544,
+        "cli_ms_samples": [
+          0.992292,
+          1.023964,
+          1.169614,
+          1.106263,
+          1.348684
+        ],
+        "cli_ms_median": 1.106263
+      },
+      {
+        "name": "late-game",
+        "board": "XOX-O-X--",
+        "player": "O",
+        "move": 7,
+        "score": 9,
+        "nodes": 24,
+        "unpruned_nodes": 33,
+        "node_reduction_fraction": 0.2727272727272727,
+        "cli_ms_samples": [
+          0.924152,
+          1.245612,
+          1.505291,
+          1.194784,
+          1.011552
+        ],
+        "cli_ms_median": 1.194784
+      },
+      {
+        "name": "last-cell",
+        "board": "-OOOXXXXO",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 1,
+        "unpruned_nodes": 1,
+        "node_reduction_fraction": 0.0,
+        "cli_ms_samples": [
+          0.930167,
+          1.229245,
+          0.89268,
+          0.868558,
+          0.925282
+        ],
+        "cli_ms_median": 0.925282
+      }
+    ],
+    "cpp": [
+      {
+        "name": "opening",
+        "board": "---------",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 34202,
+        "unpruned_nodes": 549945,
+        "node_reduction_fraction": 0.9378083262871741,
+        "cli_ms_samples": [
+          4.141236,
+          4.117024,
+          3.465901,
+          3.411869,
+          3.717485
+        ],
+        "cli_ms_median": 3.717485
+      },
+      {
+        "name": "corner-response",
+        "board": "X--------",
+        "player": "O",
+        "move": 4,
+        "score": 0,
+        "nodes": 6304,
+        "unpruned_nodes": 59704,
+        "node_reduction_fraction": 0.8944124346777436,
+        "cli_ms_samples": [
+          2.225582,
+          2.316159,
+          1.993081,
+          1.997268,
+          2.191249
+        ],
+        "cli_ms_median": 2.191249
+      },
+      {
+        "name": "center-response",
+        "board": "----X----",
+        "player": "O",
+        "move": 0,
+        "score": 0,
+        "nodes": 8465,
+        "unpruned_nodes": 55504,
+        "node_reduction_fraction": 0.8474884692995099,
+        "cli_ms_samples": [
+          3.22059,
+          2.208818,
+          4.307338,
+          2.59256,
+          2.476812
+        ],
+        "cli_ms_median": 2.59256
+      },
+      {
+        "name": "immediate-win",
+        "board": "XX-OO----",
+        "player": "X",
+        "move": 2,
+        "score": 9,
+        "nodes": 64,
+        "unpruned_nodes": 156,
+        "node_reduction_fraction": 0.5897435897435898,
+        "cli_ms_samples": [
+          1.693388,
+          1.833887,
+          1.857767,
+          1.605967,
+          2.024858
+        ],
+        "cli_ms_median": 1.833887
+      },
+      {
+        "name": "forced-block",
+        "board": "OO-XX-X--",
+        "player": "O",
+        "move": 2,
+        "score": 9,
+        "nodes": 17,
+        "unpruned_nodes": 25,
+        "node_reduction_fraction": 0.31999999999999995,
+        "cli_ms_samples": [
+          1.925765,
+          1.889818,
+          1.766646,
+          1.735305,
+          2.355419
+        ],
+        "cli_ms_median": 1.889818
+      },
+      {
+        "name": "opposite-corners",
+        "board": "X---O---X",
+        "player": "O",
+        "move": 1,
+        "score": 0,
+        "nodes": 497,
+        "unpruned_nodes": 1052,
+        "node_reduction_fraction": 0.5275665399239544,
+        "cli_ms_samples": [
+          1.888663,
+          1.729148,
+          1.950497,
+          1.789285,
+          1.80092
+        ],
+        "cli_ms_median": 1.80092
+      },
+      {
+        "name": "late-game",
+        "board": "XOX-O-X--",
+        "player": "O",
+        "move": 7,
+        "score": 9,
+        "nodes": 24,
+        "unpruned_nodes": 33,
+        "node_reduction_fraction": 0.2727272727272727,
+        "cli_ms_samples": [
+          1.928674,
+          1.871738,
+          1.785498,
+          2.015032,
+          1.91897
+        ],
+        "cli_ms_median": 1.91897
+      },
+      {
+        "name": "last-cell",
+        "board": "-OOOXXXXO",
+        "player": "X",
+        "move": 0,
+        "score": 0,
+        "nodes": 1,
+        "unpruned_nodes": 1,
+        "node_reduction_fraction": 0.0,
+        "cli_ms_samples": [
+          1.610896,
+          1.988227,
+          1.935218,
+          2.184859,
+          1.646928
+        ],
+        "cli_ms_median": 1.935218
+      }
+    ]
+  }
+}

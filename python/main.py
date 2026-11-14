@@ -12,8 +12,24 @@ def winner(board: list[str]) -> str | None:
     return None
 
 
-def minimax(board: list[str], current: str, ai: str, depth: int, alpha: int, beta: int, nodes: list[int]) -> int:
+def minimax(board: list[str], current: str, ai: str, depth: int, alpha: int, beta: int,
+            nodes: list[int], table: dict | None = None) -> int:
     nodes[0] += 1
+    if table is None:
+        table = {}
+    key = (''.join(board), current, ai, depth)
+    original_alpha, original_beta = alpha, beta
+    cached = table.get(key)
+    if cached is not None:
+        score, bound = cached
+        if bound == 'exact':
+            return score
+        if bound == 'lower':
+            alpha = max(alpha, score)
+        else:
+            beta = min(beta, score)
+        if alpha >= beta:
+            return score
     win = winner(board)
     if win == ai:
         return 10 - depth
@@ -29,7 +45,8 @@ def minimax(board: list[str], current: str, ai: str, depth: int, alpha: int, bet
         if cell != '-':
             continue
         board[i] = current
-        score = minimax(board, 'O' if current == 'X' else 'X', ai, depth + 1, alpha, beta, nodes)
+        score = minimax(board, 'O' if current == 'X' else 'X', ai, depth + 1,
+                        alpha, beta, nodes, table)
         board[i] = '-'
         if maximizing:
             best = max(best, score)
@@ -39,6 +56,10 @@ def minimax(board: list[str], current: str, ai: str, depth: int, alpha: int, bet
             beta = min(beta, best)
         if beta <= alpha:
             break
+    # A cutoff gives only a bound, not an exact value. Reusing it as exact can
+    # change the best move when another root branch reaches this same position.
+    bound = 'upper' if best <= original_alpha else 'lower' if best >= original_beta else 'exact'
+    table[key] = (best, bound)
     return best
 
 
@@ -55,11 +76,12 @@ def solve(board_text: str, ai: str) -> dict[str, int | str]:
     best_move = -1
     best_score = -100
     nodes = [0]
+    table = {}  # Per solve: no stale bounds or memory growth across requests.
     for i, cell in enumerate(board):
         if cell != '-':
             continue
         board[i] = ai
-        score = minimax(board, 'O' if ai == 'X' else 'X', ai, 1, -100, 100, nodes)
+        score = minimax(board, 'O' if ai == 'X' else 'X', ai, 1, -100, 100, nodes, table)
         board[i] = '-'
         if score > best_score:
             best_score = score
@@ -81,3 +103,4 @@ def main() -> int:
 
 if __name__ == '__main__':
     raise SystemExit(main())
+

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "positions": [
+    {"name": "opening", "board": "---------", "player": "X"},
+    {"name": "corner-response", "board": "X--------", "player": "O"},
+    {"name": "center-response", "board": "----X----", "player": "O"},
+    {"name": "immediate-win", "board": "XX-OO----", "player": "X"},
+    {"name": "forced-block", "board": "OO-XX-X--", "player": "O"},
+    {"name": "opposite-corners", "board": "X---O---X", "player": "O"},
+    {"name": "late-game", "board": "XOX-O-X--", "player": "O"},
+    {"name": "last-cell", "board": "-OOOXXXXO", "player": "X"}
+  ]
+}
