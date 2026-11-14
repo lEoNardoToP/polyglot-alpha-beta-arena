@@ -15,6 +15,8 @@ If you are reviewing this for an interview or hiring decision:
 4. **Run one alpha-beta engine:** `python3 python/main.py XX-OO---- X`
 5. **Check the cross-language contract:** every implementation must agree on `move` and `score`.
 
+For reproducible node counts and CLI latency samples, see [`benchmark/README.md`](benchmark/README.md).
+
 For the concepts and trade-offs behind the code, see [`TECHNICAL_INTERVIEW_NOTES.md`](./TECHNICAL_INTERVIEW_NOTES.md).
 
 ## Independent contract verification
@@ -68,6 +70,8 @@ A compact Deep Q-Network implementation containing:
 The goal is to expose the mechanics behind a basic value-based RL loop in ordinary Java code.
 
 ### Polyglot Alpha-Beta Arena
+
+The Python engine also uses a per-search transposition table with exact/lower/upper bounds, preserving the same move and score contract while reusing repeated positions. See the [measured comparison](benchmark/README.md).
 
 Minimax with alpha-beta pruning implemented consistently in:
 
@@ -172,7 +176,7 @@ The repository is expected to preserve these properties:
 - repeated runs are deterministic for the same input;
 - failures are explicit rather than silently returning malformed output.
 
-A future `benchmark/` directory will make the reviewer-facing evidence more systematic with a fixed input corpus and raw result summaries.
+The [`benchmark/`](benchmark/README.md) directory contains a fixed eight-position corpus, an oracle-checked CLI benchmark, raw samples and an executed four-language report. On the opening position, the Python transposition table reduces recursive visits from 34,202 to 8,482 (75.2%); the independent oracle still agrees on all 4,520 reachable nonterminal positions. CLI timings include process startup; the report makes no pure-search speed claim.
 
 ---
 
@@ -197,11 +201,11 @@ A future `benchmark/` directory will make the reviewer-facing evidence more syst
 
 The current repository is an intentionally narrow portfolio project. Useful next improvements are:
 
-- fixed benchmark corpus and result snapshots;
 - property-based position generation;
-- transposition tables;
+- transposition tables for the remaining language implementations;
 - timing/node-count comparisons;
 - a small visualizer;
 - a short terminal/demo recording.
 
 Large unrelated experiments should live elsewhere so this repository remains easy to review.
+

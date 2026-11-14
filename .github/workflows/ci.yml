@@ -25,14 +25,22 @@ jobs:
       - name: Build and compare implementations
         shell: bash
         run: |
-          python -m unittest discover -s scripts -p 'test_verify_contract.py' -v
+          python -m unittest discover -s scripts -p 'test_*.py' -v
           python scripts/verify_contract.py \
             --languages python javascript c cpp java php csharp \
             --exhaustive-python --output reports/contract-core.json
+      - name: Verify fixed-corpus benchmark
+        run: |
+          python scripts/benchmark.py --languages python javascript c cpp \
+            --repeats 3 --output reports/benchmark-core.json
       - uses: actions/upload-artifact@v4
         with:
           name: contract-core
           path: reports/contract-core.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-core
+          path: reports/benchmark-core.json
 
   swift:
     runs-on: macos-latest
@@ -44,3 +52,4 @@ jobs:
         with:
           name: contract-swift
           path: reports/contract-swift.json
+
